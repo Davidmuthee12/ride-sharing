@@ -1,6 +1,9 @@
-package TripRepository
+package repository
 
-import "ride-sharing/services/trip-service/internal/domain"
+import (
+	"context"
+	"ride-sharing/services/trip-service/internal/domain"
+)
 
 type inmemRepository struct {
 	trips    map[string]*domain.TripModel
