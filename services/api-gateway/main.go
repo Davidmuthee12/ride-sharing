@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	httpAddr = env.GetString("HTTP_ADDR", ":8081")
+	httpAddr       = env.GetString("GATEWAY_HTTP_ADDR", ":8081")
+	tripServiceURL = env.GetString("TRIP_SERVICE_URL", "http://localhost:8083")
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("POST /trip/preview", handleTripReview)
+	mux.HandleFunc("POST /trip/preview/", handleTripReview)
 
 	server := &http.Server{
 		Addr:    httpAddr,
