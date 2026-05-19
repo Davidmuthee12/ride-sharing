@@ -25,7 +25,7 @@ func handleTripReview(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: call trip service
 
-	response := contracts.APIResponse{Data: "ok"}
+	response := contracts.APIResponse{Data: reqBody}
 	
 	writeJSON(w, http.StatusCreated, response)
 
