@@ -24,6 +24,8 @@ func main() {
 
 	mux.HandleFunc("POST /trip/preview", handleTripReview)
 	mux.HandleFunc("POST /trip/preview/", handleTripReview)
+	mux.HandleFunc("/ws/drivers", handleDriversWebSocket)
+	mux.HandleFunc("/ws/riders", handleRidersWebSocket)
 
 	server := &http.Server{
 		Addr:    httpAddr,
