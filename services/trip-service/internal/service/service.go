@@ -24,9 +24,9 @@ func NewService(repo domain.TripRepository) *service {
 
 func (s *service) CreateTrip(ctx context.Context, fare *domain.RideFareModel) (*domain.TripModel, error) {
 	t := &domain.TripModel{
-		ID:       primitive.NewObjectID(),
-		UserID:   fare.UserID,
-		Status:   "pending",
+		ID: primitive.NewObjectID(),
+		UserID: fare.UserID,
+		Status: "pending",
 		RideFare: fare,
 	}
 	return s.repo.CreateTrip(ctx, t)
@@ -46,7 +46,7 @@ func (s *service) GetRoute(ctx context.Context, pickup, destination *types.Coord
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
-	if err != nil {
+	if err != nil {  
 		return nil, fmt.Errorf("Failed to read the response: %v", err)
 	}
 
