@@ -33,9 +33,14 @@ func handleTripReview(w http.ResponseWriter, r *http.Request) {
 
 	defer tripService.Close()
 
-	// TODO: call trip service
+	tripPreview, err := tripService.Client.PreviewTrip(r.Context(), reqBody.toProto())
+	if err != nil {
+		log.Printf("Failed to preview a trip: %v", err)
+		http.Error(w, "Failed topreview trip", http.StatusInternalServerError)
+		return
+	}
 
-	response := contracts.APIResponse{Data: reqBody}
+	response := contracts.APIResponse{Data: tripPreview}
 	
 	writeJSON(w, http.StatusCreated, response)
 
