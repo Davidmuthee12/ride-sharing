@@ -12,6 +12,11 @@ import * as Geohash from 'ngeohash';
 import { RoutingControl } from "./RoutingControl";
 import { DriverCard } from "./DriverCard";
 import { TripEvents } from "../contracts";
+import carIcon from '../assets/Car.svg';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+const imageSrc = (image: string | { src: string }) => typeof image === 'string' ? image : image.src;
 
 const START_LOCATION: Coordinate = {
   latitude: 37.7749,
@@ -19,21 +24,28 @@ const START_LOCATION: Coordinate = {
 }
 
 const driverMarker = new L.Icon({
-  iconUrl: "https://www.svgrepo.com/show/25407/car.svg",
-  iconSize: [30, 30],
-  iconAnchor: [15, 30],
+  iconUrl: imageSrc(carIcon),
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+  popupAnchor: [0, -17],
 });
 
 const startLocationMarker = new L.Icon({
-  iconUrl: "https://www.svgrepo.com/show/535711/user.svg",
-  iconSize: [30, 40], // Size of the marker
-  iconAnchor: [20, 40], // Anchor point
+  iconUrl: imageSrc(markerIcon),
+  shadowUrl: imageSrc(markerShadow),
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 const destinationMarker = new L.Icon({
-  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/176px-Map_pin_icon.svg.png",
-  iconSize: [40, 40], // Size of the marker
-  iconAnchor: [20, 40], // Anchor point
+  iconUrl: imageSrc(markerIcon),
+  shadowUrl: imageSrc(markerShadow),
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 export const DriverMap = ({ packageSlug }: { packageSlug: CarPackageSlug }) => {
