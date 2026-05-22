@@ -10,7 +10,7 @@ import (
 
 type tripServiceClient struct {
 	Client pb.TripServiceClient
-	conn *grpc.ClientConn
+	conn   *grpc.ClientConn
 }
 
 func NewTripServiceClient() (*tripServiceClient, error) {
@@ -28,12 +28,11 @@ func NewTripServiceClient() (*tripServiceClient, error) {
 
 	return &tripServiceClient{
 		Client: client,
-		conn: conn,
+		conn:   conn,
 	}, nil
-
 }
 
-func(c *tripServiceClient) Close() {
+func (c *tripServiceClient) Close() {
 	if c.conn != nil {
 		if err := c.conn.Close(); err != nil {
 			return
