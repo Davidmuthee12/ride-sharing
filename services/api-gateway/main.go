@@ -13,8 +13,7 @@ import (
 )
 
 var (
-	httpAddr       = env.GetString("GATEWAY_HTTP_ADDR", ":8081")
-	tripServiceURL = env.GetString("TRIP_SERVICE_URL", "http://localhost:8083")
+	httpAddr = env.GetString("HTTP_ADDR", ":8081")
 )
 
 func main() {
@@ -22,8 +21,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("POST /trip/preview", enableCORS(handleTripReview))
-	mux.HandleFunc("POST /trip/preview/", enableCORS(handleTripReview))
+	mux.HandleFunc("POST /trip/preview", enableCORS(handleTripPreview))
 	mux.HandleFunc("/ws/drivers", handleDriversWebSocket)
 	mux.HandleFunc("/ws/riders", handleRidersWebSocket)
 
@@ -33,9 +31,10 @@ func main() {
 	}
 
 	serverErrors := make(chan error, 1)
+
 	go func() {
-		log.Printf("Server Listening on %s", httpAddr)
-		serverErrors <-server.ListenAndServe()
+		log.Printf("Server listening on %s", httpAddr)
+		serverErrors <- server.ListenAndServe()
 	}()
 
 	shutdown := make(chan os.Signal, 1)
@@ -52,7 +51,7 @@ func main() {
 		defer cancel()
 
 		if err := server.Shutdown(ctx); err != nil {
-			log.Printf("Could not stop the serevr gracefully: %v", err)
+			log.Printf("Could not stop the server gracefully: %v", err)
 			server.Close()
 		}
 	}
