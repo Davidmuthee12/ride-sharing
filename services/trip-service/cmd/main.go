@@ -35,10 +35,9 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	// Starting the GRPC server
+	// Starting the gRPC server
 	grpcServer := grpcserver.NewServer()
-	grpc.NewGRPCHandler(grpcServer, svc) 
-
+	grpc.NewGRPCHandler(grpcServer, svc)
 
 	log.Printf("Starting gRPC server Trip service on port %s", lis.Addr().String())
 
